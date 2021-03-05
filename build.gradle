@@ -21,6 +21,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.1.4.RELEASE'
+    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.8.8'
 //    testImplementation 'org.springframework.security:spring-security-test'
     testCompile "junit:junit:4.11"
 }

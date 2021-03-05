@@ -24,6 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth)
                 throws Exception
+
+                //login details can be fetched from the database, Ldap
         {
             auth.inMemoryAuthentication()
                     .withUser("technical")

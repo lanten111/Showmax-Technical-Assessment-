@@ -3,8 +3,6 @@ package co.za.assessment.models;
 created by mumakhado on 2021/03/04
 */
 
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
 
 public class Customer {
