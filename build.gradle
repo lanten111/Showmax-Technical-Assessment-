@@ -16,11 +16,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
 //    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 //    testImplementation 'org.springframework.security:spring-security-test'
+    testCompile "junit:junit:4.11"
 }
 
 test {

@@ -23,8 +23,8 @@ public class CustomerRest {
     }
 
     @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
-    public Customer updateCustomer(@RequestParam("customer") Customer customer){
-        //save also implements update, so to update customer, dont change the id
+    public Customer updateCustomer(@RequestBody Customer customer){
+        //save also implements update if the id exist in the table, so to update customer, dont change the id
         return customerRepo.save(customer);
     }
 
