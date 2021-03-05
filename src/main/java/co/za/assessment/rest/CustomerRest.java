@@ -5,7 +5,9 @@ created by mumakhado on 2021/03/04
 import co.za.assessment.models.Customer;
 import co.za.assessment.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -34,9 +36,14 @@ public class CustomerRest {
     }
 
     @GetMapping(path = "/{customerNumber}", produces = "application/json")
-    public List<Customer> getCustomer(@PathVariable("customerNumber") String customerNumber){
-        //return a list, for a possible duplicate of customer
-        return  customerRepo.getCustomerByCustomerNumber(customerNumber);
+    public Customer getCustomer(@PathVariable("customerNumber") String customerNumber){
+        Customer customer = customerRepo.getCustomerByCustomerNumber(customerNumber);
+        if (!customer.isStatusActive()){
+            //if account is inactive return 401
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        } else {
+            return customer;
+        }
     }
 
     @GetMapping(path = "/", produces = "application/json")

@@ -14,5 +14,5 @@ public interface CustomerRepo extends MongoRepository<Customer, Long> {
 
     Long deleteCustomerByCustomerNumber(String customerNumber);
 
-    List<Customer> getCustomerByCustomerNumber(String customerNumber);
+    Customer getCustomerByCustomerNumber(String customerNumber);
 }
