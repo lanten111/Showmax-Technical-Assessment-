@@ -38,6 +38,7 @@ class AssessmentApplicationTests {
     @MockBean
     private CustomerRepo customerRepo;
 
+
     @Test
     public void CreateCustomer() throws Exception {
         Customer customer = new Customer();
@@ -56,7 +57,7 @@ class AssessmentApplicationTests {
     public void updateCustomer() throws Exception {
         Customer customer = new Customer();
         //update customer
-        customer.setId(6); //use exisiting id to update
+        customer.setId(6); //use existing id to update
         customer.setSurname("Stack");  //updated surname
         updateCustomer(customer);
 
@@ -81,6 +82,8 @@ class AssessmentApplicationTests {
 
     }
 
+
+
     private void CreateCustomer(Customer customer) throws Exception {
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -88,6 +91,7 @@ class AssessmentApplicationTests {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/customer/")
                 .content(json)
+                .header("Authorization" , "Basic dGVjaG5pY2FsOkFzc2Vzc21lbnQ=")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -101,6 +105,7 @@ class AssessmentApplicationTests {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/customer/")
                 .content(json)
+                .header("Authorization" , "Basic dGVjaG5pY2FsOkFzc2Vzc21lbnQ=")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -111,6 +116,7 @@ class AssessmentApplicationTests {
     private void getCustomer(String customerNumber) throws Exception {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/customer/"+customerNumber)
+                .header("Authorization" , "Basic dGVjaG5pY2FsOkFzc2Vzc21lbnQ=")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -120,6 +126,7 @@ class AssessmentApplicationTests {
     private void getAllCustomer() throws Exception {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/customer/")
+                .header("Authorization" , "Basic dGVjaG5pY2FsOkFzc2Vzc21lbnQ=")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -129,11 +136,13 @@ class AssessmentApplicationTests {
     private void deleteCustomer(String customerNumber) throws Exception {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/customer/"+ customerNumber)
+                .header("Authorization" , "Basic dGVjaG5pY2FsOkFzc2Vzc21lbnQ=")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
     }
+
 
 
 }
