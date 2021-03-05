@@ -3,41 +3,44 @@ package co.za.assessment.rest;
 created by mumakhado on 2021/03/04
 */
 import co.za.assessment.models.Customer;
-import co.za.assessment.service.CustomerService;
+import co.za.assessment.repository.CustomerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-
-
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerRest {
 
-    CustomerService customerService = new CustomerService();
+    @Autowired
+    CustomerRepo customerRepo;
 
     @PutMapping(path = "/", consumes = "application/json", produces = "application/json")
     public Customer createCustomer(@RequestBody Customer customer){
-      return customerService.createCustomer(customer);
+        //save also implements update, so to create customer, add new id
+        return customerRepo.save(customer);
     }
 
     @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
     public Customer updateCustomer(@RequestParam("customer") Customer customer){
-        return customerService.updateCustomer(customer);
+        //save also implements update, so to update customer, dont change the id
+        return customerRepo.save(customer);
     }
 
     @DeleteMapping(path = "/{customerNumber}", produces = "application/json")
-    public void deleteCustomer(@PathVariable("customerNumber") String customerNumber){
-         customerService.deleteCustomer(customerNumber);
+    public Long deleteCustomer(@PathVariable("customerNumber") String customerNumber){
+        return customerRepo.deleteCustomerByCustomerNumber(customerNumber);
     }
 
     @GetMapping(path = "/{customerNumber}", produces = "application/json")
-    public Customer getCustomer(@PathVariable("customerNumber") int customerNumber){
-        return customerService.getCustomer(customerNumber);
+    public List<Customer> getCustomer(@PathVariable("customerNumber") String customerNumber){
+        //return a list, for a possible duplicate of customer
+        return  customerRepo.getCustomerByCustomerNumber(customerNumber);
     }
 
     @GetMapping(path = "/", produces = "application/json")
     public List<Customer> getAllCustomer(){
-       return customerService.getAllCustomer();
+        return  customerRepo.findAll();
     }
 }

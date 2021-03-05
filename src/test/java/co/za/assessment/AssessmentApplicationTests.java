@@ -1,13 +1,13 @@
-package co.za.assessment;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class AssessmentApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
-
-}
+//package co.za.assessment;
+//
+////import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class AssessmentApplicationTests {
+//
+////    @Test
+//    void contextLoads() {
+//    }
+//
+//}

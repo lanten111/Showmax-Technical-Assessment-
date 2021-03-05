@@ -7,10 +7,12 @@ import co.za.assessment.models.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.*;
+
 @Repository
 public interface CustomerRepo extends MongoRepository<Customer, Long> {
 
-    String deleteCustomerByCustomerNumber(String customerNumber);
+    Long deleteCustomerByCustomerNumber(String customerNumber);
 
-    Customer getCustomerByCustomerNumber(int customerNumber);
+    List<Customer> getCustomerByCustomerNumber(String customerNumber);
 }
