@@ -23,7 +23,7 @@ public class CustomerRest {
 
     @PutMapping(path = "/", consumes = "application/json", produces = "application/json")
     public Customer createCustomer(@RequestBody Customer customer){
-        //save also implements update, so to create customer, add new id
+        //save also implements update, so to create new customer, add new id
         return customerRepo.save(customer);
     }
 
@@ -42,6 +42,7 @@ public class CustomerRest {
     @GetMapping(path = "/{customerNumber}", produces = "application/json")
     public Customer getCustomer(@PathVariable("customerNumber") String customerNumber){
         Customer customer = customerRepo.getCustomerByCustomerNumber(customerNumber);
+        //if no customer on that customer number, wil get null pointer, will be good to check if customer exist before checking status
         if (!customer.isStatusActive()){
             //if account is inactive return 401
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
