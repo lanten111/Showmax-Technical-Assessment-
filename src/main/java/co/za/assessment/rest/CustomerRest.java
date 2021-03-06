@@ -5,8 +5,6 @@ created by mumakhado on 2021/03/04
 import co.za.assessment.models.Customer;
 import co.za.assessment.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +17,7 @@ public class CustomerRest {
 
     @Autowired
     CustomerRepo customerRepo;
-    //would create a service class that deals with all logic and db queries
+    //would create a service class that deal with all logic and db queries
 
     @PutMapping(path = "/", consumes = "application/json", produces = "application/json")
     public Customer createCustomer(@RequestBody Customer customer){
@@ -42,18 +40,22 @@ public class CustomerRest {
     @GetMapping(path = "/{customerNumber}", produces = "application/json")
     public Customer getCustomer(@PathVariable("customerNumber") String customerNumber){
         Customer customer = customerRepo.getCustomerByCustomerNumber(customerNumber);
-        //if no customer on that customer number, wil get null pointer, will be good to check if customer exist before checking status
-        if (!customer.isStatusActive()){
-            //if account is inactive return 401
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        if (customer != null){
+            if (!customer.isStatusActive()){
+                //if account is inactive return 401
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            } else {
+                return customer;
+            }
         } else {
-            return customer;
+            // if customer is null, will return unothirized
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @GetMapping(path = "/", produces = "application/json")
     public List<Customer> getAllCustomer(){
-        //return a list of all customer in the database, including incative accound
+        //return a list of all customer in the database, including inactive account
         return  customerRepo.findAll();
     }
 }

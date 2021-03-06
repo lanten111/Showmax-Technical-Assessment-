@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         public void configureGlobal(AuthenticationManagerBuilder auth)
                 throws Exception
 
-                //login details can be fetched from the database, Ldap
+                //login details can be fetched from the database or Ldap
         {
             auth.inMemoryAuthentication()
                     .withUser("technical")
